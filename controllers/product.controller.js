@@ -125,7 +125,7 @@ exports.addNewProduct = async (req , res) =>
 
         }
 
-        const category   = await Category.findOne({name: req.body.category});
+        const category   = await Category.findOne({name: req.query.category});
         product.category = category._id;
 
         product.save();

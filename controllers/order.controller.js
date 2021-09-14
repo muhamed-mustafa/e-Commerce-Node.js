@@ -6,7 +6,7 @@ exports.getOrders = async (req, res) =>
 {
       try
       {
-          const {page , limit} = req.query;
+          const {page = 0 , limit =0} = req.query;
           const orders = await Order.find().populate("user" , "name").sort({created_at : -1}).limit(limit * 1).skip((page - 1) * limit).exec();
     
           if (!orders)

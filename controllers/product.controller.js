@@ -18,7 +18,7 @@ exports.getAllProducts = async (req , res) =>
             filter = {category : req.query.categories.split(',')};
         }
 
-          const {page , limit} = req.query;
+          const {page = 0 , limit =0} = req.query;
           const products = await Product.find(filter).populate('category').limit(limit * 1).skip((page - 1) * limit).exec();
     
           if (!products)
@@ -76,7 +76,7 @@ exports.addNewProduct = async (req , res) =>
         {
             if(req.files.thumbnail)
             {
-                const path = req.files.thumbnail[0].path;
+                const path       = req.files.thumbnail[0].path;
                 const thumbnail  = await Cloudinary.uploader.upload(path , 
                     {
                         public_id: `Products/commerce-${product.slug}-${req.files.thumbnail[0].originalname.toLowerCase().replace(/\\s/g, '-')}`,

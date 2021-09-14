@@ -10,7 +10,7 @@ exports.getUsers = async (req, res) =>
 {
       try
       {
-          const {page , limit} = req.query;
+          const {page = 0 , limit =0} = req.query;
           const users = await User.find().select('name email phone').limit(limit * 1).skip((page - 1) * limit).exec();
     
           if (!users)
